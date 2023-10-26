@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+
+    <!-- bootstrap cdn -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="./style.css">
+ <!-- google fonts -->
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Open+Sans:ital,wght@0,700;1,300&family=Poppins&display=swap" rel="stylesheet">
+
+
+
+
+</head>
+<body class="bg-dark">
+    <div class="container-fluid col-md-3">
+
+    </div>
+
+    <div  >
+        
+        <img id="im1" src="https://images.pexels.com/photos/1183099/pexels-photo-1183099.jpeg?auto=compress&cs=tinysrgb&w=600"  alt="Weather image">
+       
+        
+      </div>
+      
+
+    <div   class="container-fluid  col-md-6" >
+
+      
+             <h1 class="text-center mt-5"> <span id="hed">Weather Lens</span>  </h1>
+        <div class="d-flex   text-center  mt-5 mb-3">
+         <input  type="text" id="iname" placeholder="Enter the City Name" class="form-control"><br>
+         <input  type="button"  onclick="search()" value="search"  class="btn btn-outline-info text-light ms-3">
+        
+        
+         
+      
+       
+
+       
+        </div>
+
+        
+
+        <div class="alld " >
+           
+            <h2 ><span class="cnam fw-bold">cityName</span></h2>
+            <p class="nam text-light fs-2 fw-bold"></p>
+
+            <h2><span  class="cnam fw-bold">Temperature</span></h2>
+            <p class="tem text-light fs-2 fw-bold"></p>
+
+            <h2><span class="cnam fw-bold">Humidity</span></h2>
+            <p class="hum text-light fs-2 fw-bold"></p>
+
+            <h2><span class="cnam fw-bold">Pressure</span></h2>
+            <p class="press text-light fs-2 fw-bold"></p>
+
+            <h2><span class="cnam fw-bold">windspeed</span></h2>
+            <p class="ws text-light fs-2 fw-bold"></p>
+
+
+
+            
+       
+
+
+    </div>
+    </div>
+    <div class="container-fluid col-md-3"></div>
+</body>
+<script>
+    const  search=async ()=>{
+        let cityName=iname.value
+        console.log(cityName);
+
+        if(cityName){
+       const res= await   fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=1d30ab8c09b84f2792a9693f8eb7fa75&units=metric`)
+      res.json().then((data)=>{console.log(data);
+
+          //temperature
+        let tem=data.main.temp
+         console.log(tem);
+        //cityname
+         let cname=data.name
+         console.log(cname);
+         //humidity
+         let hum=data.main.humidity
+         console.log(hum);
+         //pressure
+         let ps=data.main.pressure+ "Pa"
+         console.log(ps);
+
+         //windspeed
+         let ws=data.wind.speed
+         console.log(ws); 
+
+         
+         document.querySelector('.nam').innerHTML=data.name
+         document.querySelector('.tem').innerHTML=data.main.temp+ " °C"
+         document.querySelector('.hum').innerHTML=data.main.humidity+ " %"
+         document.querySelector('.press').innerHTML=data.main.pressure+ " Pa"
+         document.querySelector('.ws').innerHTML=data.wind.speed+ " km/h"
+
+         
+        
+        
+
+        
+
+         
+ 
+
+    
+    
+    
+  
+    })
+
+    
+       
+    
+
+ 
+
+        }
+        
+        else{
+            alert('Please enter a valid input')
+        }
+
+       
+    }
+
+    
+</script>
+</html>
